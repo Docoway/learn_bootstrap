@@ -88,7 +88,7 @@ html(lang='zh-CN')
                                 cite dabiaoge
 
         div
-            h5 .list-inline 逐行显示   .list-inline-item 单行多列并排  ul和li都能用
+            h1 .list-inline 逐行显示   .list-inline-item 单行多列并排  ul和li都能用
         ul(class='list-inline')
             li(class='list-inline') liebiaozhiyi
             li(class='list-inline') liebiaozhier
@@ -97,13 +97,13 @@ html(lang='zh-CN')
             li(class='list-inline-item') liebiaozhisi
 
         div
-            h5 alert警示框
+            h1 alert警示框
         div(class='alert alert-primary' role='alert')
             span this is a primary alert-check it out!
             //button(type='button' class='close' data-dismiss='alert'  aria-label='Close')
 
         div
-            h5  Badge
+            h1  Badge
             button(type='button' class='btn btn-primary')
                 span Notifications
                     span(class='badge badge-light') 4
@@ -111,7 +111,7 @@ html(lang='zh-CN')
             a(href='#' class='badge badge-secondary') Secondary
 
         div
-            h5 Breadcrumb
+            h1 Breadcrumb
         nav(aria-label)
             ol(class='breadcrumb')
                 li(class='breadcrumb-item')
@@ -122,7 +122,7 @@ html(lang='zh-CN')
                     a(href='#') Data
 
         div
-            h5 button and button group
+            h1 button and button group
             button(type='button' class='btn btn-secondary  btn-lg') button
             a(class='btn btn-success' href='#' role='button') a
             input(type='submit' class='btn btn-danger' value='submit')
@@ -152,7 +152,7 @@ html(lang='zh-CN')
                     a(class='dropdown-item' href='#') dropdown2
 
         div
-            h5 button-group-vertical
+            h1 button-group-vertical
         div(class='btn-group-vertical')
             button(type='button' class='btn btn-secondary') 1
             button(type='button' class='btn btn-secondary') 2
@@ -163,7 +163,7 @@ html(lang='zh-CN')
                     a(class='dropdown-item') dropdown link
 
         div
-            h5 card
+            h1 card
             div(class='card' style='width: 18rem;')
                 img(class='card-img-top' src='./images/spinner2.gif')
                 div(class='card-body')
@@ -175,7 +175,7 @@ html(lang='zh-CN')
                     a(class='card-link') card link
 
         div
-            h5 carousell
+            h1 carousell
         div(class='container')
             div(class='row')
                 div(class='col-md-8 offset-md-2')
@@ -196,7 +196,7 @@ html(lang='zh-CN')
 
 
         div
-            h5 collapse
+            h1 collapse
             p
                 a(class='btn btn-outline-primary' data-toggle='collapse' href='#multiCollapseExample1') Toggle first element
                 button(type='button' class='btn btn-outline-info' data-toggle='collapse' data-target='#multiCollapseExample2') Toggle second element
@@ -212,7 +212,8 @@ html(lang='zh-CN')
                             span Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
 
         div
-            h5 dropdown
+            h1 dropdown
+            h5 有时间看看下拉框怎么触发
             div(class='dropdown')
                 button(class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown") Dropdown button
                 div(class='dropdown-menu')
@@ -222,7 +223,7 @@ html(lang='zh-CN')
 
 
         div
-            h5 form
+            h1 form
             form
                 div(class='form-group')
                     label(for='exampleInputEmail') Email
@@ -280,12 +281,229 @@ html(lang='zh-CN')
                 input(type='radio' class='custom-control-input')
                 label(class='custom-control-label') or toggle this other custom radio
 
+            div(class='custom-file')
+                input(type='file' class='custom-file-input')
+                label(class='custom-file-label') Choose file
+
         form
             div(class='form-row')
                 div(class='col-md-4')
                     label Fist name
-                    input(type='text' class='form-control' placeholder='firstname')
-                div()
+                    input(type='text' class='form-control is-valid' placeholder='firstname' required)
+                    div(class='valid-feedback') looks good!
+                div(class='col-md-4')
+                    label Last name
+                    input(type='text' class='form-control' placeholder='last name' required)
+                    div(class='valid-feedback') Looks good!
+
+
+
+
+        h1 input-group
+        div(class='form-row')
+            div(class='col-md-4 offset-md-2')
+                div(class='input-group mb-3')
+                    div(class='input-group-prepend')
+                        span(class='input-group-text') @
+                    input(type='text' class='form-control' placeholder='username')
+                div(class='input-group')
+                    div(class='input-group-prepend')
+                        span(class='input-group-text') https://example.com/users/
+                    input(type='text' class='form-control is-valid' placeholder='your url')
+                    div(class='input-group-prepend')
+                        span(class='input-group-text') addtion part
+                div(class='input-group mt-3')
+                    input(type='email' class='form-control' placeholder='emailaddress' )
+                    div(class='input-group-prepend')
+                        button(type='button' class='btn btn-outline-primary') .com
+
+                div(class='input-group mt-3')
+                    div(class='input-group-prepend')
+                        button(type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown') dropdown
+                        div(class='dropdown-menu')
+                            a(class='dropdown-item') Action
+                            a(class='dropdown-item') Another action
+                            a(class='dropdown-item') last action
+                            div(class='dropdown-divider')
+                            a(class='dropdown-item') something here
+                    input(type='password' class='form-control')
+
+                div(class='input-group mt-3 ml-3')
+                    div(class='input-group-prepend')
+                        button(type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown') dropdown
+                        div(class='dropdown-menu')
+                            a(class='dropdown-item') Action
+                            a(class='dropdown-item') Another action
+                            a(class='dropdown-item') last action
+                            div(class='dropdown-divider')
+                            a(class='dropdown-item') something here
+                    select(class='custom-select')
+                        option(selected) Choose
+                        option(vaule='1') one
+                        option(value='2') two
+                        option(value='3') three
+
+                div(class='input-group mt-5')
+                    div(class='input-group-prepend')
+                        span(class='input-group-text') upload
+                    div(class='custom-file')
+                        input(type='file' class='custom-file-input')
+                        label(class='custom-file-label') Choose file
+
+        h1 Hero大块屏(jumpbotron)
+        div(class='container')
+            div(class='jumbotron')
+                h1(class='display-3') jumpbotron
+                p(class='lead') This is a simple hero unit, a simple jumbotron-stylecomponent for calling extra attention to featured content or information
+                hr(class='my-4')
+                p It uses utility classes for typography and spacing to space content out within the larger container
+                p(class='lead')
+                    a(class='btn btn-outline-primary btn-lg') Learn more
+
+
+        h1 list-group
+        div(class='form-row')
+            div(class='col-md-4 offset-md-3')
+                ul(class='list-group')
+                    li(class='list-group-item') Cras justo odio
+                    li(class='list-group-item active') 对 li
+                    li(class='list-group-item disabled') list-group-item-success
+                    li(class='list-group-item list-group-item-primary') 组合使用
+                    li(class='list-group-item list-group-item-secondary') Cras justo odio
+                    li(class='list-group-item list-group-item-success') Cras justo odio
+
+                div(class='list-group mt-3')
+                    a(href='#' class='list-group-item list-group-item-action active') list-group-item 必须
+                    a(href='#' class='list-group-item list-group-item-action') list-group-item-action
+                    a(href='#' class='list-group-item list-group-item-action list-group-item-parimary') list-group-item-primary
+                    a(href='#' class='list-group-item list-group-item-info') 对a和button 随意组合
+                    a(href='#' class='list-group-item list-group-item-action list-group-item-success') list-group-item-action是针对a和button
+                    a(href='#' class='list-group-item list-group-item-action list-group-item-warning') 确保li和div不可以提供点击
+                    a(href='#' class='list-group-item list-group-item-action list-group-item-danger') 所以li一般不用
+
+                h5(class='mt-3') 引入badge
+                ul(class='list-group')
+                    li(class='list-group-item d-flex justify-content-between') 要加入
+                        span(class='badge badge-primary badge-pill') 14
+                    li(class='list-group-item d-flex align-items-center') .d-flex 和 .justify-content-between
+                        span(class='badge badge-success badge-pill') 2
+                    li(class='list-group-item d-flex justify-content-between align-items-center') shima
+                        span(class='badge badge-info badge-pill') 1
+
+        h1(class='mt-5') 弹出模态框 modal
+        button(type='button' class='btn btn-primary' data-toggle='modal' data-target='#examplemodal') modal默认隐藏 需添加按钮
+        div(id='examplemodal' class='modal fade' tabindex='-1')
+            div(class='modal-dialog modal-dialog-centered')
+                div(class='modal-content')
+                    div(class='modal-header')
+                        h5(class='modal-title') Modal title
+                        button(type='button' class='close' data-dismiss='modal')
+                            span &times;
+                    div(class='modal-body')
+                        p Modal body text goes here.
+                        p 按钮需要添加 data-toggle='modal' datatarget='#modal_id'
+                        p &times 和close关闭modal需要添加data-dismiss='modal'
+
+                        p div(class='modal-dialog')是默认上方显示 div(class='modal-dialog modal-dialog-centered')
+                    div(class='modal-footer')
+                        button(type='button' class='btn btn-outline-danger' data-dismiss='modal') close
+                        button(type='button' class='btn btn-outline-success') save
+
+        h1(class='mt-5') 导航nav
+        ul(class='nav nav-tabs')
+            li(class='nav-item')
+                a(href='#' class='nav-link active') Active
+            li(class='nav-item')
+                a(href='#' class='nav-link') link
+            li(class='nav-item')
+                a(href='#' class='nav-link') link
+            li(class='nav-item')
+                a(href='#' class='nav-link disabled') Disabled
+
+        h5 使用.nav-pills
+        ul(class='nav nav-pills')
+            li(class='nav-item')
+                a(href='#' class='nav-link active') Active
+            li(class='nav-item')
+                a(href='#' class='nav-link') link
+            li(class='nav-item')
+                a(href='#' class='nav-link') link
+            li(class='nav-item')
+                a(href='#' class='nav-link disabled') Disabled
+
+        h5 .nav-pills .nav-fill
+        ul(class='nav nav-pills nav-fill')
+            li(class='nav-item')
+                a(href='#' class='nav-link active') Active
+            li(class='nav-item')
+                a(href='#' class='nav-link') link
+            li(class='nav-item')
+                a(href='#' class='nav-link') link
+            li(class='nav-item')
+                a(href='#' class='nav-link disabled') Disabled
+
+        h5 直接用nav也可以
+        nav(class='nav nav-pills nav-fill')
+            a(href='#' class='nav-item nav-link active') Active
+            a(href='#' class='nav-item nav-link') link
+            a(href='#' class='nav-item nav-link') link
+            a(hrf='#' class='nav-item nav-link diaabled') Disabled
+
+
+        h1(class='mt-5') navbar
+        nav(class='navbar navbar-expand-lg navbar-dark bg-primary')
+            a(href='#' class='navbar-brand') Navbar
+            button(class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent')
+                span(class='navbar-toggler-icon')
+
+            div(class='collapse navbar-collapse' id='navbarSupportedContent')
+                ul(class='navbar-nav mr-auto')
+                    li(class='nav-item active')
+                        a(href='#' class='nav-link') Home
+                    li(class='nav-item')
+                        a(href='#' class='nav-link') link
+                    li(class='nav-item')
+                        a(href='#' class='nav-link dropdown-toggle' id='navbarDropdown' data-toggle='dropdown') Dropdown
+                        div(class='dropdown-menu')
+                            a(class='dropdown-item') Action
+                            a(class='dropdown-item') Another action
+                            div(class='dropdown-divider')
+                            a(class='dropdown-item') something else
+                    li(class='nav-item')
+                        a(href='#' class='nav-link disabled') Disabled
+
+                form(class='form-inline my-2 my-lg-0')
+                    input(type='search' class='form-control mr-sm-2' placeholder='search')
+                    button(type='submit' class='btn btn-outline-success my-2 my-sm-0') Search
+
+
+        h1(class='mt-5') 分页pagination
+        nav
+            ul(class='pagination')
+                li(class='page-item')
+                    a(href='#' class='page-link') Previous
+                li(class='page-item')
+                    a(href='#' class='page-link') 1
+                li(class='page-item')
+                    a(href='#' class='page-link') 2
+                li(class='page-item')
+                    a(href='#' class='page-link') 3
+                li(class='page-item')
+                    a(href='#' class='page-link') Next
+
+
+        h1(class='mt-5') pop提示(popover)
+        button(type='button' class='btn btn-success' data-toggle='popover' data-placement='top' title='Popover title' data-content='And here is some amazing content.it is very engaging.right?') Popover on top
+        button(type='button' class='btn btn-warning' data-toggle='popover' data-placement='bottom' title='Popover title' data-content='And here is some amazing content.it is very engaging.right?') Popover on bottom
+        button(type='button' class='btn btn-danger' data-toggle='popover' data-placement='right' title='Popover title' data-content='And here is some amazing content.it is very engaging.right?') Popover on right
+
+        button(type='button' class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?") 点击体验 popover提示框效果
+
+
+
+
+
+
 
 
 
