@@ -1,0 +1,39 @@
+doctype html
+html(lang="zh-CN")
+    head
+        meta(charset="UTF-8")
+        title Try cbioportal
+        script(src="/javascripts/d3.min.js")
+    body
+        h1 try cbioportal
+        div(style="margin-right: 20px; margin-top: 30px; border:1px dashed #ddd;")
+            svg(width="765" height="200")
+                rect(fill="#FFFFFF" x="0" y="0" width="765" height="200")
+                g
+                    rect(fill="#BABDB6" x="70" y="146" height="14" width="666")
+                    g
+                        rect(x="98" y="141" width="95" height="24" fill="#2dcf00")
+                        text(x="146.43" y="153" text-anchor="middle" dy="0.3em" fill="#FFFFFF" style="font-family: arial; font-size: 12px;") Sox_N
+                    g
+                        rect(x="207.18" y="141" width="88.84" height="24" fill="#ff5353")
+                        text(x="251.60" y="153" text-anchor="middle" dy="0.3em" fill="#FFFFFF" style="font-family: arial; font-size: 12px;") HMG_box
+                    g
+                        line(stroke="rgb(170,170,170)" stroke-width="1" x1="70" y1="170" x2="735" y2="170")
+                        g
+                            line(stroke="rgb(170,170,170)" stroke-width="1" x1="70" y1="170" x2="70" y2="177")
+                            text(text-anchor="middle" x="70" y="177" dy="1em" style="font-family: arial; font-size: 10px;") 0
+                        g
+                            line(stroke="rgb(170,170,170)" stroke-width="1")
+
+        script(type="text/javascript").
+            window.onload = function() {
+                var g = d3.select("svg").select("g")
+                    //.attr("width", "100%")
+                    //.attr("height", "100%")
+                    .call(d3.behavior.zoom().scaleExtent([1,100]).on("zoom", function () {
+                        g.attr("transform", "translate(" + d3.event.translate + ")" + "scale(" + d3.event.scale + ")")
+                        //g.attr("transform", "scale(" + d3.event.scale + ")")
+                        //g.attr("transform","translate("+d3.event.translate+")")
+                    }))
+                    .on("mousedown.zoom",null)
+            }
