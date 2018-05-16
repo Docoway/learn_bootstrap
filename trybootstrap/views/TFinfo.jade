@@ -1,0 +1,194 @@
+doctype html
+html(lang="zh-CN")
+    head
+        meta(charset='UTF-8')
+        title= 精准医学知识库搜索
+        meta(name='theme-color',content='#4F4F4F')
+        meta(name='description',content='精准医学知识库搜索和应用接口')
+        script(src="https://code.jquery.com/jquery-1.12.4.js")
+        link(rel="stylesheet" href="/stylesheets/bootstrap.min.css")
+
+        style.
+            #recommendlist{overflow-y: auto; height: 250px; z-index: 10;}
+            #recommendlist a{padding: 3px 20px; cursor: pointer; color: black;}
+
+    body
+        nav(class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;")
+            a(href="/" class="navbar-brand")
+                img(src="/s/a/hp_zh_cn_gray.png")
+            button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent")
+                span(class="navbar-toggler-icon")
+            div(class="collapse navbar-collapse" id="navbarSupportedContent")
+                ul(class="navbar-nav mr-auto mt-2 mt-lg-0")
+                    li(class="nav-item active")
+                        a(href="#" class="nav-link") Home
+                    li(class="nav-item")
+                        a(href="#" class="nav-link") link
+                form(class="form-inline my-2 my-lg-0")
+                    input(type="search" class="form-control mr-sm-2" placeholder="Genesymbol")
+                    button(type="submit" class="btn btn-outline-success my-2 my-sm-0") Search
+
+        div(class="container")
+            div(class="row mt-5")
+                div(class="col-md-6 offset-md-3")
+                    h1(class="mt-3 mb-3" align="center") Transcription Factors Information
+                    form
+                        div(class="form-row")
+                            div(class="col-md-10")
+                                input(type="search" class="form-control mr-sm-2" placeholder="Promoter ID" oninput="SearchGene(event)")
+                                div(id="recommendlist" class="list-group")
+                            div(class="col-md-2")
+                                button(type="submit" class="btn btn-outline-primary") Search
+
+
+            div(class="card mt-2")
+                div(class="card-header")
+                    h5 General information
+                div(class="card-body")
+                    h5(class="card-title") Gene
+                    p(class="card-text") #{GeneInfo[0].Gene_Symbol}&nbsp&nbsp
+                        a(href="https://www.ncbi.nlm.nih.gov/gene/?term=#{GeneInfo[0].entrez_id}",target="_blank") Entrez_id:#{GeneInfo[0].entrez_id}&nbsp&nbsp
+                        a(href="http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=#{GeneInfo[0].HGNC_id}",target="_blank") #{GeneInfo[0].HGNC_id} &nbsp&nbsp
+                        span(id="genepubmed",style="display:none;") Pubmed_id:
+                    h5(class="card-title") Synonyms
+                    p(class="card-text") #{GeneInfo[0].synonyms}
+                    h5(class="card-text") Gene type
+                    p(class="card-text") #{GeneInfo[0].type_of_gene}
+                    h5(class="card-title") Description
+                    p(class="card-text") #{GeneInfo[0].description}
+                    h5(class="card-title") Location
+                    p(class="card-text")
+                        em Homo Sapiens (Human)
+                            a(href="https://www.ncbi.nlm.nih.gov/genome/gdv/browser/?context=gene&acc=#{GeneInfo[0].entrez_id}",target="_blank") #{GeneInfo[0].chromosome_band} genome browser
+
+
+
+            div(class="card mt-5")
+                div(class="card-header")
+                    h5 Sequence Retrieval Tool
+                div(class="card-body")
+                    form(id="promoterform" class="form-inline")
+                        div(class="form-group")
+                            label Get sequence &nbsp
+                                b from &nbsp
+                            input(type="number" name="value1" value="-1999" min="-1999")
+                        b &nbsp to &nbsp
+                        div(class="form-group")
+                            input(type="number" name="value2" value="0" max="0")
+                            label &nbsp bp relative to TSS
+                        button(type="submit" class="btn btn-primary btn-sm ml-5") Get Sequence
+                        div(class='w-100')
+                        div(class="form-check mt-3")
+                            input(type="checkbox" name="lowerCasecheck" class="form-check-input" id="lowerCaseCheck")
+                            label(class="form-check-label" for="lowerCaseCheck") Lower case upstream TSS
+
+                    div(id="sequence_list")
+
+
+            div(class="card mt-5")
+                div(class="card-header")
+                    h5 Search Motif Tool
+                div(class="card-body")
+                    form(id="TFsform" class="form-inline")
+                        div(class="form-group")
+                            label
+                                b From &nbsp
+                            input(type="number" value="-1999" min = "-1999")
+                        b &nbsp to &nbsp
+                        div(class="form-group")
+                            input(type="number" value="0" max="0")
+                            label &nbsp bp relative to TSS
+                        button(type="submit" class="btn btn-primary btn-sm ml-5") Get TFs
+
+                    div(id="TFs_chart" class="mt-5" style="border: 1px dashed #ddd;")
+                        svg(id="TFsvg" width="1000" height="200")
+
+
+
+        script(type="text/javascript").
+
+            $("#recommendlist").on("mouseover mouseout","a",function(){
+                $(this).toggleClass("list-group-item-primary");
+            });
+
+
+            $("#promoterform").submit(function(e){
+                e.preventDefault();
+                var html = "";
+                var term = !{JSON.stringify(promoter_id)};
+                var formdata = $(this).serializeArray();
+                $.ajax({
+                    url: "/TFinfo/getpromoter",
+                    type: "POST",
+                    data: {term: term},
+                    success: function(data){
+                        var pro_length = parseInt(data[0].promoter.length);
+                        var value1 = parseInt(formdata[0].value) + pro_length;
+                        var value2 = parseInt(formdata[1].value) + pro_length;
+                        var promoterslice = (data[0].promoter).slice(value1, value2);
+                        if(formdata.length == 2){
+                            var promoterslice = promoterslice.toUpperCase();
+                        }
+                        html += "<h6 class='subtitle mt-3'>Promoter ID:</h6><p class='card-text'>"+data[0].promoter_id+"</p><h6 class='card-subtitle'>Strand Direction:</h6><p class='card-text'>"+data[0].direction+"</p><h6 class='card-subtitle'>Promoter Start:</h6><p class='card-text'>"+data[0].pro_start+"</p><h6 class='card-subtitle'>Promoter End:</h6><p class='card-text'>"+data[0].pro_end+"</p>";
+                        html += "<h5 class='card-title'>Promoter</h5><p class='card-text'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+promoterslice+"</p>";
+                        $("#sequence_list").html(html);
+                    }
+                });
+            });
+
+            $("#TFsform").submit(function(e){
+                e.preventDefault();
+                var html = "<rect fill='#FFFFFF' x='0' y='0' width='1050' height='200'></rect><rect fill='#BABDB6' x='25' y='120' height='15' width='1000'></rect>";
+                var term = !{JSON.stringify(promoter_id)};
+                var formdata = $(this).serializeArray();
+                $.ajax({
+                    url: "/TFinfo/getTFs",
+                    type: "POST",
+                    data: {term: term},
+                    success: function(data){
+                        var tfs = (data[0].TFs).split(",;,");
+                        for(var s in tfs){
+                            var arr = tfs[s].split(",");
+                            var tfstart = arr[5]/2;
+                            var tflength = (arr[6]-arr[5])/2;
+                            html += "<g><rect x='"+tfstart+"' width='"+tflength+"' y='115' height='25' fill='#2dcf00'></rect></g>";
+                        }
+                        html += "<g><line stroke='rgb(170,170,170)' stroke-width='1' x1='25' y1='140' x2='1050' y2='140'></line>";
+                        for(var i = 0;i<21;i++){
+                            var x1 = 50*i;
+                            var axisvalue = 100*i;
+                            html += "<g><line stroke='rgb(170,170,170)' stroke-width='1' x1='"+x1+"' y1='140' x2='"+x1+"' y2='148'></line><text text-anchor='middle'x='"+x1+"' y='148' dy='1em' style='font-family: arial; font-size: 10px;'>"+axisvalue+"</text>"
+                        }
+                        $("#TFsvg").html(html);
+                    }
+                });
+            });
+
+            function SearchGene(event){
+                var term = event.target.value;
+                var html = "";
+                if(term.length == 0){
+                    $("#recommendlist").html("");
+                }else {
+                    $.ajax({
+                        url: "/TFinfo/generecommend",
+                        type: "POST",
+                        data: {term: term},
+                        success: function (data) {
+                            if(data.length !== 0){
+                                for(var s in data){
+                                    html += "<a href='/TFinfo/"+data[s].promoter_id+"' class='list-group-item'>"+data[s].promoter_id+"</li>";
+                                }
+                            }
+                            $("#recommendlist").html(html);
+                        }
+                    });
+                }
+            }
+
+
+
+
+
+
+
