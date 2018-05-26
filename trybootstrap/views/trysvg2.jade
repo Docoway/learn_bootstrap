@@ -1,0 +1,117 @@
+doctype html
+html(lang="zh-CN")
+    head
+        meta(charset="UTF-8")
+        script(src="/javascripts/d3.min.js")
+    body
+        svg(width="600" height="400")
+            circle(class="circle" cx="30" cy="30" r="20" fill="red")
+
+        script(type="text/javascript").
+            /*
+            (function (d3) {
+                setInterval(function () {
+                    var circle;
+
+                    circle = d3.select("svg").select(".circle");
+
+
+                    circle
+                        .attr("cx",20)
+                        .attr("cy",20)
+                        .attr("r",20)
+                        .style("fill","green")
+
+
+
+                    circle
+                        .transition()
+                        .duration(1000)
+                        .attr("cx",function(){
+                            return 370;
+                        })
+                        .ease('bounce')
+
+                        .transition()
+                        .attr('transform',"translate(0,340)")
+
+                        .transition()
+                        .attr('cx', 30)
+                        .ease('cubic')
+
+                        .transition()
+                        .attr('cy', 30)
+                        .ease('bounce');
+
+                    circle
+                        .transition()
+                        .attr('r', 40)
+                        .duration(1000)
+                        .ease('bounce')
+
+                        .transition()
+                        .attr('r', 20)
+                        .duration(1000)
+
+                        .transition()
+                        .attr('r', 40)
+                        .duration(1000)
+
+                        .transition()
+                        .attr('r', 20)
+                        .style("fill","pink")
+                        .duration(1000)
+                }, 4200);
+            })(d3);
+            */
+
+
+            var circle = d3.select("svg").select(".circle")
+                .transition()
+                .duration(1000)
+                .attr("cx",370)
+                .ease("bounce")
+
+                .transition()
+                .duration(500)
+                .attr("cy",370)
+
+                .transition()
+                .duration(500)
+                .attr("cx",30)
+                .ease("cubic")
+
+                .transition()
+                .duration(1000)
+                .attr("cy",30)
+                .ease("bounce")
+
+                .transition()
+                .duration(1000)
+                .attr("r",40)
+                .ease("linear")
+                .style("fill","green")
+
+                .transition()
+                .duration(1000)
+                .attr("r",20)
+                .ease("circle")
+
+                .transition()
+                .duration(1000)
+                .attr("r",40)
+                .ease("elastic")
+                .style("fill","pink")
+
+                .transition()
+                .duration(1000)
+                .attr("r",20)
+                .ease("bounce")
+
+                .transition()
+                .duration(1000)
+                .attr("transform","translate(180,180)")
+
+
+
+

@@ -1,6 +1,6 @@
 var mysql = require("mysql2");
 var TFsql = require("./TFsql");
-var pmkbsql = require("./pmkbsql");
+//var pmkbsql = require("./pmkbsql");
 var $ = require("stringformat");
 var $conf = require("../conf/db");
 var $util = require("../util/util");
@@ -31,16 +31,32 @@ module.exports = {
         })
     },
 
+    getgeneinfo: function(req,res,next){
+        var term = req.body.term;
+        var arr = term.split("_");
+        var Strsql = $("select entrez_id,Gene_Symbol,HGNC_id,synonyms,chromosome_band,type_of_gene,description from medicine_database.geneinfo_ncbihgnc where Gene_Symbol = '{0}' ",arr[0]);
+        pool2.getConnection(function(err,connection){
+            if(err){
+                console.log(err);
+            }else{
+                connection.query(Strsql,function(err,result){
+                    jsonWrite(res,result);
+                    connection.release();
+                })
+            }
+        })
+    },
+
     getGeneInfo: function(req,res,next){
         var term = req.params.term;
         var arr = term.split("_");
-        var Strsql = $(pmkbsql.queryGeneBySymbol,arr[0]);
+        var Strsql = $("select entrez_id,Gene_Symbol,HGNC_id,synonyms,chromosome_band,type_of_gene,description from medicine_database.geneinfo_ncbihgnc where Gene_Symbol = '{0}' ",arr[0]);
         pool2.getConnection(function(err,connection){
             if(err){
                 console.log(err);
             }else {
                 connection.query(Strsql, function (err, result) {
-                    res.render("TFinfo", {GeneInfo: result, promoter_id: term});
+                    res.render("TFinfo3", {GeneInfo: result, promoter_id: term});
                     connection.release();
                 })
             }
