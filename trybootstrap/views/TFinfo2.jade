@@ -218,11 +218,20 @@ html(lang="zh-CN")
                     success: function(data) {
                         var tfs = (data[0].TFs).split(",;,");
                         var dataset = [];
-                        for(var s in tfs){
-                            var arr = tfs[s].split(",");
-                            arr[6]=arr[6]-2000;
-                            arr[7]= arr[7]-2000;
-                            dataset.push(arr);
+                        if(data[0].direction == "+") {
+                            for (var s in tfs) {
+                                var arr = tfs[s].split(",");
+                                arr[6] = arr[6] - 2000;
+                                arr[7] = arr[7] - 2000;
+                                dataset.push(arr);
+                            }
+                        }else if(data[0].direction == "-"){
+                            for (var s in tfs) {
+                                var arr = tfs[s].split(",");
+                                arr[6] = -arr[6];
+                                arr[7] = -arr[7];
+                                dataset.push(arr);
+                            }
                         }
                         var TFset = [];
                         for(var i in dataset){
@@ -257,11 +266,11 @@ html(lang="zh-CN")
                             .attr("fill", "#FFD700")
                         g_color
                             .append("text")
-                            .attr("x", 900)
+                            .attr("x", 850)
                             .attr("y", -59)
-                            .attr("text-anchor", "middle")
+                            .attr("text-anchor", "start")
                             .attr("fill", "#212529")
-                            .text("pwm_score: 0~0.849")
+                            .text("possibly")
                         g_color
                             .append("rect")
                             .attr("x", 800)
@@ -271,11 +280,11 @@ html(lang="zh-CN")
                             .attr("fill", "#2dcf00")
                         g_color
                             .append("text")
-                            .attr("x", 916)
+                            .attr("x", 850)
                             .attr("y",-39)
-                            .attr("text-anchor","middle")
+                            .attr("text-anchor","start")
                             .attr("fill","#212529")
-                            .text("pwm_score: 0.849~0.907")
+                            .text("probably")
                         g_color.append("rect")
                             .attr("x", 800)
                             .attr("y", -30)
@@ -284,11 +293,11 @@ html(lang="zh-CN")
                             .attr("fill", "#007bff")
                         g_color
                             .append("text")
-                            .attr("x",916)
+                            .attr("x",850)
                             .attr("y",-19)
-                            .attr("text-anchor","middle")
+                            .attr("text-anchor","start")
                             .attr("fill","#212529")
-                            .text("pwm_score: 0.907~0.952")
+                            .text("likely")
                         g_color
                             .append("rect")
                             .attr("x", 800)
@@ -298,11 +307,11 @@ html(lang="zh-CN")
                             .attr("fill", "#6610f2")
                         g_color
                             .append("text")
-                            .attr("x",900)
+                            .attr("x",850)
                             .attr("y",1)
-                            .attr("text-anchor","middle")
+                            .attr("text-anchor","start")
                             .attr("fill","#212529")
-                            .text("pwm-score: 0.952~1")
+                            .text("most likely")
 
                         var g_chr = svg.append("g")
                             .attr("transform","translate(25,80)");
@@ -376,7 +385,7 @@ html(lang="zh-CN")
                                 return xlinear(d[6]);
                             })
                             .attr("width",function(d){
-                                return xlinear(d[7])-xlinear(d[6]);
+                                return Math.abs(xlinear(d[7])-xlinear(d[6]));
                             })
                             .attr("y", 50)
                             .attr("height",20)
