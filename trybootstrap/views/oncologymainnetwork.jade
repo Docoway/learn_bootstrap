@@ -1,0 +1,210 @@
+extends oncologylayout
+block content
+    script(src='/stylesheets/vis/dist/vis-network.min.js')
+    link(rel='stylesheet' href='/stylesheets/vis/dist/vis-network.min.css')
+    main
+        div(class='search-box' style='margin-top: 15px;' )
+            input(type='search' placeholder='Search Cancer Type' oninput='Oninput(event)' class='form-control' style="width: 400px; margin-left:30px; margin-bottom: 0px;")
+            ul(id='recommendlist' class='dropdown-menu' style='top:135px; left:30px; width: 400px; z-index: 100')
+        div(id='mynetwork' align='center')
+
+    script(type='text/javascript').
+        $('#navul li').eq(2).addClass('active');
+        var allnodes =  [];
+        var alledges = [];
+        function drawnetwork() {
+            var nodes = new vis.DataSet(allnodes);
+            var edges = new vis.DataSet(alledges);
+            var container = document.getElementById('mynetwork');
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {
+                configure: {
+                    enabled: false,
+                    filter: ['nodes', 'physics'],
+                    showButton: true
+                },
+
+                width: '1500px',
+                height: '800px',
+                edges: {
+                    //arrows: 'to',
+                    font: '12px arial #ff0000',
+                    length: 200,
+                    chosen: {}
+                },
+                /*
+                nodes: {
+                    shape: 'dot',
+                    font: {size: 25},
+                    size: 50,
+                    chosen: {
+                        node: function(values,id,selected,hovering){
+                            values.size = 80;
+                            values.shadow = true;
+                            values.color = '#1c75cd';
+                        },
+                        label: function (values, id, selected, hovering) {
+                            values.color = '#1c75cd';
+                            var id = id;
+                        }
+                    }
+                },
+                */
+                groups: {
+                    cancertype: {
+                        //shape: 'dot',
+                        font: {size: 25},
+                        size: 80,
+                        /*
+                        chosen: {
+                            node: function(values,id,selected,hovering){
+                                values.size = 100;
+                                values.shadow = true;
+                            },
+                            label: function(values,id,selected,hovering){
+                                values.color = '#1c75cd';
+                            }
+                        }
+                        */
+                    },
+                    gene:{
+                        shape: 'dot',
+                        font: {size: 20},
+                        size: 50,
+                        color: '#87CEEB'
+                    }
+                },
+
+                layout: {
+                    hierarchical: {
+                        enabled: false,
+                        levelSeparation: 150,
+                        nodeSpacing: 100,
+                        treeSpacing: 200,
+                        blockShifting: true,
+                        edgeMinimization: true,
+                        parentCentralization: true,
+                        direction: 'UD',        // UD, DU, LR, RL
+                        sortMethod: 'hubsize'   // hubsize, directed
+                    }
+                },
+
+                interaction: {hover: true}
+
+            };
+            var network = new vis.Network(container, data, options);
+
+            network.on('hoverNode', function (params) {
+                if (params.node[0] == '1') {
+                    nodes.update({
+                        id: params.node,
+                        size: 100,
+                        font: {
+                            size: 40,
+                            color: '#1c75cd'
+                        }
+                    });
+                }
+            });
+            network.on('blurNode',function(params){
+                if(params.node[0] == '1'){
+                    nodes.update({
+                        id: params.node,
+                        size: 80,
+                        font: {
+                            size: 25,
+                            color: 'black'
+                        }
+                    })
+                }
+            });
+            network.on('doubleClick',function(params){
+                if(params.nodes.length !== 0) {
+                    var data = params.nodes[0];
+                    if(data[0] == '1') {
+                        var cancertype = data.slice(1);
+                        window.open('/oncology/getcancergene/' + cancertype);
+                    }
+                    if(data[0] == '2'){
+                        var gene = data.slice(1);
+                        window.open('/oncology/getcancertype/' + gene);
+                    }
+                }
+            })
+
+
+        }
+
+        function getcancertypeandgene(){
+            $.ajax({
+                url: '/oncology/getcancertypeandgene',
+                type: 'GET',
+                success: function(data){
+                    var cancertype = data[0];
+                    var gene = data[1];
+                    var interation = data[2];
+                    if(cancertype.length !== 0){
+                        for(var s in cancertype){
+                            allnodes.push({id: '1'+cancertype[s].Cancer_Type, label: cancertype[s].Cancer_Type, shape:'circularImage', image: '/s/a/cancerimage/'+cancertype[s].Cancer_Type+'.jpg', group: 'cancertype'});
+                        }
+                    }else{
+                        allnodes.push();
+                    }
+                    if(gene.length !==0){
+                        for(var s in gene){
+                            allnodes.push({id: '2'+gene[s].Gene, label: gene[s].Gene, group: 'gene'});
+                        }
+                    }
+                    if(interation.length !== 0){
+                        for(var s in interation){
+                            alledges.push({from: '1'+interation[s].Cancer_Type, to: '2'+interation[s].Gene});
+                        }
+                    }
+                    drawnetwork();
+                }
+
+            })
+
+
+        }
+
+        function Oninput(event){
+            var html = '';
+            var term = event.target.value;
+            if(term.length == 0){
+                $('#recommendlist').css('display','none');
+            }else{
+                $.ajax({
+                    url: '/oncology/getcancerrecommend',
+                    type: 'POST',
+                    data: {term: term},
+                    success: function(data){
+                        if(data.length == 0){
+                            $('#recommendlist').css('display','none');
+                        }else{
+                            for(var s in data){
+                                html += "<li onclick='window.open("+"\"/oncology/getcancergene/"+data[s].Cancer_Type+"\""+")'><div class='search-box-template'><span>" + data[s].Cancer_Type +"</span></div></li>";
+                            }
+                            $('#recommendlist').html(html);
+                            $('#recommendlist').css('display','block');
+                        }
+                    }
+                });
+            }
+        }
+
+
+        $('#recommendlist').on('mouseover mouseout','li',function(){
+            $(this).toggleClass('active');
+        })
+        $('#recommendlist').on('click','li',function(){
+            $('#recommendlist').css('display','none');
+        })
+
+
+
+        getcancertypeandgene();
+
