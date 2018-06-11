@@ -1,0 +1,45 @@
+doctype html
+html(lang='zh-CN')
+    head
+        meta(charset='UTF-8')
+        title= 精准肿瘤知识库
+        script(src="https://code.jquery.com/jquery-1.12.4.js")
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/vendor.css')
+        link(rel='stylesheet' href='/stylesheets/oncokb.css')
+    body
+        div(style='min-height: 100%; margin-bottom: -50px;')
+            div(class='navbar navbar-inverse navbar-fixed-top scrolled-box')
+                div(class='container nav-container')
+                    div(class='navbar-header')
+                        a(href='/')
+                            img(class='logo-brand' src='/s/a/hp_zh_cn_gray.png')
+                    div(class='navbar-collapse collapse')
+                        ul(id='navul' class='nav navbar-nav')
+                            li(style='margin: 0 30px;')
+                                a(href='/oncology' style='font-size: 15px;')
+                                    b Oncogene
+                            li(style='margin: 0px 30px;')
+                                a(href='/oncology/oncologydrug' style='font-size: 15px;')
+                                    b Level
+                            //li(style='margin: 0 30px;')
+                                a(href='/oncology/trails' style='font-size: 15px;')
+                                    b Clinical Trails
+                            li(style='margin: 0 30px;')
+                                a(href='/oncology/mainnetwork' style='font-size: 15px;')
+                                    b Oncologynetwork
+
+            script(type='text/javascript').
+                $('#navul li').each(function(index){
+                    $(this).click(function(){
+                        $('#navul li').removeClass('active');
+                        $('#navul li').eq(index).addClass('active');
+                    })
+                })
+            block content
+            div(style='height: 50px;')
+        footer(id='b_footer',class='b_footer',role='contentinfo',data-bm='24' style='height: 50px; padding-top: 8px;')
+            div(id='b_footerItems')
+                span © 2017 Zhejiang University
+                ul
+                    li 国家重大科技专项“疾病研究精准医学知识库构建”（2016YFC0901900）资助
