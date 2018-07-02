@@ -1,0 +1,251 @@
+doctype html
+html(lang="zh-CN")
+    head
+        title="临床基因检测平台"
+        meta(charset="UTF-8")
+        meta(name="author" content="DC")
+        meta(name="description" content="Clinical Genetic Diagnosis Platform")
+
+        link(rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
+        link(rel="stylesheet" href="/stylesheets/bootstrap.min.css")
+        link(rel="stylesheet" href="//code.z01.com/v4/dist/css/zico.min.css")
+
+
+    body
+        nav(class="navbar navbar-expand-lg navbar-light bg-light")
+            a(class="navbar-brand" href="/")
+                img(src="/images/hp_zh_cn_gray.png")
+            button(class="navbar-toggler" type="button" data-toggle="collapse" datatarget="#navbarSupportedContent")
+                span(class="navbar-toggle-icon")
+            div(class="collapse navbar-collapse" id="navbarSupportedContent")
+                ul(class="navbar-nav mr-auto")
+                    li(class="nav-item active")
+                        a(class="nav-link" href="/geneticdiagnosis") Home
+                    li(class="nav-item")
+                        a(class="nav-link" href="#") PatientInfo
+                    li(class="nav-item")
+                        a(class="nav-link" href="#geneticDianosis") Diagnosis
+                    li(class="nav-item")
+                        a(class="nav-link" href="#Report") Repoort
+                button(type="button" class="btn btn-outline-primary  my-2 my-lg-0 mr-5" data-toggle="modal" data-target="#signinModal") Sign in/Sign up
+            div(id="signinModal" class="modal fade" tabindex="-1" role="dialog")
+                div(class="modal-dialog modal-dialog-centered" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title") Sign in/Sign up
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span &times;
+                        div(class="modal-body")
+                            form
+                                div(class="form-group")
+                                    label(class="col-form-label") User:
+                                    input(id="username" type="text" class="form-control")
+                                div(class="form-group")
+                                    label(class="col-form-label") Password:
+                                    input(id="password" type="password" class="form-control")
+                        div(class="modal-footer")
+                            button(type="button" class="btn btn-outline-primary") Sign in
+                            button(type="button" class="btn btn-outline-primary") Sign up
+
+        div(class="container mt-5")
+            div(class="card text-center")
+                div(class="card-header")
+                    h2 Workflow of producing the Genetic diagnosis report
+                div(class="card-body")
+                    div(id="mainicon" class="row mt-5")
+                        div(class="col-md-1")
+                        div(class="col-md-2")
+                            a(class="btn btn-info" data-toggle="modal" data-target="#patientInfoModal")
+                                i(class="zi zi_user zi_9x")
+                            h3(class="ml-1 mt-4") PatientInfo
+                        div(class="col-md-2")
+                            i(class="zi zi_longarrowaltright zi_9x")
+                        div(class="col-md-2")
+                            //span(class="zi_group zi_12x")
+                                i(class="zi zi_circle zi_group12x")
+                                i(class="zi zi_user zi_group8x")
+                            a( class="btn btn-info" data-toggle="modal" data-target="#diagnosisInfoModal")
+                                i(class="zi zi_squareBook zi_9x")
+                            h3(class="ml-1 mt-4") Diagnosis
+                        div(class="col-md-2")
+                            i(class="zi zi_longarrowaltright zi_9x")
+                        div(class="col-md-2")
+                            a( class="btn btn-info" data-toggle="modal" data-target="#reportModal")
+                                i(class="zi zi_file zi_9x")
+                            h3(class="ml-1 mt-4") Report
+                    div(id="progressview" class="mt-5")
+                        div(class="progress")
+                            div(id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-info" style="width: 33%")
+
+            div(id="models")
+                div(id="patientInfoModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog")
+                    div(class="modal-dialog modal-lg modal-dialog-centered" role="document")
+                        div(class="modal-content")
+                            div(class="modal-header")
+                                h3(class="modal-title") Patient Information
+                                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                    span &times;
+                            div(class="modal-body")
+                                form
+                                    div(class="mt-2")
+                                        h4(align="left") patientID
+                                    div(class="form-row")
+                                        div(class="form-group col-md")
+                                            label Name
+                                            input(type="text" class="form-control" placeholder="姓名")
+                                        div(class="form-group col-md")
+                                            label Gender
+                                            select(id="genderSelect" class="form-control")
+                                                option(selected) Male
+                                                option Female
+                                        div(class="form-group col-md")
+                                            label Age
+                                            input(type="date" class="form-control")
+                                    div(class="form-row")
+                                        div(class="form-group col-md-4")
+                                            label Contact
+                                            input(type="text" class="form-control" placeholder="联系方式")
+                                        div(class="form-group col-md-8")
+                                            label Address
+                                            input(type="text" class="form-control" placeholder="地址")
+                                    div(class="form-row")
+                                        div(class="form-group col-md-10")
+                                            label(align="left") Phenotype
+                                            select(id="phnotypeSelect" class="form-control")
+                                                option(selected) Choose
+                                        div(class="form-group col-md-1")
+                                            //button(type="button" class="form-control btn btn-outline-primary") Add
+                                            i(class=" mt-4 zi zi_pluscircle zi_2x text-primary")
+                                    div(class="form-row")
+                                        div(class="form-group col-md-12")
+                                            label Description
+                                            textarea(id="diseaseDescription" class="form-control" rows="8")
+                            div(class="modal-footer")
+                                button(type="button" class="btn btn-outline-secondary" data-dismiss="modal") Close
+                                button(type="button" class="btn btn-outline-primary") Confirm
+                div(id="diagnosisInfoModal" class="modal fade" tabindex="-1" role="dialog")
+                    div(class="modal-dialog modal-lg modal-dialog-centered" role="document")
+                        div(class="modal-content")
+                            div(class="modal-header")
+                                h3(class="modal-title") Diagnosis Information
+                                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                    span &times;
+                            div(class="modal-body")
+                                    div(class="mt-2")
+                                        h4(align="left") patientID
+                                    div(class="input-group mb-3")
+                                        div(class="custom-file")
+                                            input(id="inputExcel" type="file" class="custom-file-input")
+                                            label(class="custom-file-label" for="#inputExcel") Choose file
+                                    div(class="row mt-5")
+                                        div(class="col-md-3")
+                                            nav(id="excelContent" class="navbar navbar-light bg-light")
+                                                a(class="navbar-brand") Gene
+                                                nav(class="nav nav-pills flex-column")
+                                                    a(class="nav-link" href="#item1") PARK7
+                                                    a(class="nav-link" href="#item2") CLCNKA
+                                                    a(class="nav-link" href="#item3") PAX7
+                                                    a(class="nav-link" href="#item4") MPL
+                                                    a(class="nav-link" href="#item5") ABCA4
+                                        div(class="col-md-9")
+                                            div(data-spy="scroll" data-target="#excelContent" data-offset="0" style="height: 500px; overflow-y:scroll")
+                                                h3(id="item1") PARK7
+                                                    h4 Omim
+                                                    p DJ1, or PARK7, has pleiotropic function that includes roles as a chaperone with protease activity, a transcriptional regulator, and an antioxidant scavenger and redox sensor. DJ1 is also involved in tumorigenesis and in maintaining mitochondrial homeostasis (summary by Ottolini et al., 2013).
+                                                    h4 Clinvar
+                                                    p Nagakubo et al. (1997) used yeast 2-hybrid screening of a HeLa cell library to clone a cDNA that encodes a novel 189-amino acid protein, termed DJ1. Northern blot analysis revealed that DJ1 is ubiquitously expressed as a 1.0-kb transcript. Western blot analysis and immunofluorescence showed that the DJ1 protein is present in both nuclei and cytoplasm of HeLa cells. After addition of serum to cells, DJ1 expression increased and the protein translocated from the cytoplasm to nuclei. A search of the GenBank protein database revealed that DJ1 has approximately 40% identity to the 198-amino acid protein product of the E. coli thiazole monophosphate biosynthesis (ThiJ) gene. A homolog also exists in the nematode C. elegans.
+                                                    h4 Hgmd
+                                                    p Northern blot analysis by Bonifati et al. (2003) showed ubiquitous expression of the DJ1 transcript, particularly in liver, skeletal muscle, and kidney. In the brain, expression was also ubiquitous, with higher levels of the transcript in subcortical regions, such as the caudate nucleus, the thalamus, the substantia nigra, and the hippocampus, that are more affected in parkinson disease (see MOLECULAR GENETICS)
+                                                    h4 Cosmic
+                                                    p Zhang et al. (2005) generated highly specific antibodies to DJ1 protein and investigated the subcellular localization of endogenous DJ1 protein in both mouse brain tissues and human neuroblastoma cells. DJ1 was widely distributed and was highly expressed in brain. Cell fractionation and immunogold electron microscopy revealed an endogenous pool of DJ1 in mitochondrial matrix and intermembrane space.
+                                                h3(id="item2") CLCNKA
+                                                    h4 Omim
+                                                    p DJ1, or PARK7, has pleiotropic function that includes roles as a chaperone with protease activity, a transcriptional regulator, and an antioxidant scavenger and redox sensor. DJ1 is also involved in tumorigenesis and in maintaining mitochondrial homeostasis (summary by Ottolini et al., 2013).
+                                                    h4 Clinvar
+                                                    p Nagakubo et al. (1997) used yeast 2-hybrid screening of a HeLa cell library to clone a cDNA that encodes a novel 189-amino acid protein, termed DJ1. Northern blot analysis revealed that DJ1 is ubiquitously expressed as a 1.0-kb transcript. Western blot analysis and immunofluorescence showed that the DJ1 protein is present in both nuclei and cytoplasm of HeLa cells. After addition of serum to cells, DJ1 expression increased and the protein translocated from the cytoplasm to nuclei. A search of the GenBank protein database revealed that DJ1 has approximately 40% identity to the 198-amino acid protein product of the E. coli thiazole monophosphate biosynthesis (ThiJ) gene. A homolog also exists in the nematode C. elegans.
+                                                    h4 Hgmd
+                                                    p Northern blot analysis by Bonifati et al. (2003) showed ubiquitous expression of the DJ1 transcript, particularly in liver, skeletal muscle, and kidney. In the brain, expression was also ubiquitous, with higher levels of the transcript in subcortical regions, such as the caudate nucleus, the thalamus, the substantia nigra, and the hippocampus, that are more affected in parkinson disease (see MOLECULAR GENETICS)
+                                                    h4 Cosmic
+                                                    p Zhang et al. (2005) generated highly specific antibodies to DJ1 protein and investigated the subcellular localization of endogenous DJ1 protein in both mouse brain tissues and human neuroblastoma cells. DJ1 was widely distributed and was highly expressed in brain. Cell fractionation and immunogold electron microscopy revealed an endogenous pool of DJ1 in mitochondrial matrix and intermembrane space.
+                                                h3(id="item3") PAX7
+                                                    h4 Omim
+                                                    p DJ1, or PARK7, has pleiotropic function that includes roles as a chaperone with protease activity, a transcriptional regulator, and an antioxidant scavenger and redox sensor. DJ1 is also involved in tumorigenesis and in maintaining mitochondrial homeostasis (summary by Ottolini et al., 2013).
+                                                    h4 Clinvar
+                                                    p Nagakubo et al. (1997) used yeast 2-hybrid screening of a HeLa cell library to clone a cDNA that encodes a novel 189-amino acid protein, termed DJ1. Northern blot analysis revealed that DJ1 is ubiquitously expressed as a 1.0-kb transcript. Western blot analysis and immunofluorescence showed that the DJ1 protein is present in both nuclei and cytoplasm of HeLa cells. After addition of serum to cells, DJ1 expression increased and the protein translocated from the cytoplasm to nuclei. A search of the GenBank protein database revealed that DJ1 has approximately 40% identity to the 198-amino acid protein product of the E. coli thiazole monophosphate biosynthesis (ThiJ) gene. A homolog also exists in the nematode C. elegans.
+                                                    h4 Hgmd
+                                                    p Northern blot analysis by Bonifati et al. (2003) showed ubiquitous expression of the DJ1 transcript, particularly in liver, skeletal muscle, and kidney. In the brain, expression was also ubiquitous, with higher levels of the transcript in subcortical regions, such as the caudate nucleus, the thalamus, the substantia nigra, and the hippocampus, that are more affected in parkinson disease (see MOLECULAR GENETICS)
+                                                    h4 Cosmic
+                                                    p Zhang et al. (2005) generated highly specific antibodies to DJ1 protein and investigated the subcellular localization of endogenous DJ1 protein in both mouse brain tissues and human neuroblastoma cells. DJ1 was widely distributed and was highly expressed in brain. Cell fractionation and immunogold electron microscopy revealed an endogenous pool of DJ1 in mitochondrial matrix and intermembrane space.
+                                                h3(id="item4") MPL
+                                                    h4 Omim
+                                                    p DJ1, or PARK7, has pleiotropic function that includes roles as a chaperone with protease activity, a transcriptional regulator, and an antioxidant scavenger and redox sensor. DJ1 is also involved in tumorigenesis and in maintaining mitochondrial homeostasis (summary by Ottolini et al., 2013).
+                                                    h4 Clinvar
+                                                    p Nagakubo et al. (1997) used yeast 2-hybrid screening of a HeLa cell library to clone a cDNA that encodes a novel 189-amino acid protein, termed DJ1. Northern blot analysis revealed that DJ1 is ubiquitously expressed as a 1.0-kb transcript. Western blot analysis and immunofluorescence showed that the DJ1 protein is present in both nuclei and cytoplasm of HeLa cells. After addition of serum to cells, DJ1 expression increased and the protein translocated from the cytoplasm to nuclei. A search of the GenBank protein database revealed that DJ1 has approximately 40% identity to the 198-amino acid protein product of the E. coli thiazole monophosphate biosynthesis (ThiJ) gene. A homolog also exists in the nematode C. elegans.
+                                                    h4 Hgmd
+                                                    p Northern blot analysis by Bonifati et al. (2003) showed ubiquitous expression of the DJ1 transcript, particularly in liver, skeletal muscle, and kidney. In the brain, expression was also ubiquitous, with higher levels of the transcript in subcortical regions, such as the caudate nucleus, the thalamus, the substantia nigra, and the hippocampus, that are more affected in parkinson disease (see MOLECULAR GENETICS)
+                                                    h4 Cosmic
+                                                    p Zhang et al. (2005) generated highly specific antibodies to DJ1 protein and investigated the subcellular localization of endogenous DJ1 protein in both mouse brain tissues and human neuroblastoma cells. DJ1 was widely distributed and was highly expressed in brain. Cell fractionation and immunogold electron microscopy revealed an endogenous pool of DJ1 in mitochondrial matrix and intermembrane space.
+                                                h3(id="item5") ABCA4
+                                                    h4 Omim
+                                                    p DJ1, or PARK7, has pleiotropic function that includes roles as a chaperone with protease activity, a transcriptional regulator, and an antioxidant scavenger and redox sensor. DJ1 is also involved in tumorigenesis and in maintaining mitochondrial homeostasis (summary by Ottolini et al., 2013).
+                                                    h4 Clinvar
+                                                    p Nagakubo et al. (1997) used yeast 2-hybrid screening of a HeLa cell library to clone a cDNA that encodes a novel 189-amino acid protein, termed DJ1. Northern blot analysis revealed that DJ1 is ubiquitously expressed as a 1.0-kb transcript. Western blot analysis and immunofluorescence showed that the DJ1 protein is present in both nuclei and cytoplasm of HeLa cells. After addition of serum to cells, DJ1 expression increased and the protein translocated from the cytoplasm to nuclei. A search of the GenBank protein database revealed that DJ1 has approximately 40% identity to the 198-amino acid protein product of the E. coli thiazole monophosphate biosynthesis (ThiJ) gene. A homolog also exists in the nematode C. elegans.
+                                                    h4 Hgmd
+                                                    p Northern blot analysis by Bonifati et al. (2003) showed ubiquitous expression of the DJ1 transcript, particularly in liver, skeletal muscle, and kidney. In the brain, expression was also ubiquitous, with higher levels of the transcript in subcortical regions, such as the caudate nucleus, the thalamus, the substantia nigra, and the hippocampus, that are more affected in parkinson disease (see MOLECULAR GENETICS)
+                                                    h4 Cosmic
+                                                    p Zhang et al. (2005) generated highly specific antibodies to DJ1 protein and investigated the subcellular localization of endogenous DJ1 protein in both mouse brain tissues and human neuroblastoma cells. DJ1 was widely distributed and was highly expressed in brain. Cell fractionation and immunogold electron microscopy revealed an endogenous pool of DJ1 in mitochondrial matrix and intermembrane space.
+                            div(class="modal-footer")
+                                button(type="button" class="btn btn-outline-secondary" data-dismiss="modal") Close
+                                button(type="button" class="btn btn-outline-primary") Confirm
+                div(id="reportModal" class="modal fade" tabindex="-1" role="dialog")
+                    div(class="modal-dialog modal-lg modal-dialog-centered" role="document")
+                        div(class="modal-content")
+                            div(class="modal-header")
+                                h3(class="modal-title") Report Information
+                                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                    span &times;
+                            div(class="modal-body")
+                                form
+                            div(class="modal-footer")
+                                button(type="button" class="btn btn-outline-secondary") Close
+                                button(type="button" class="btn btn-outline-primary") Confirm
+
+
+
+        script(type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js")
+        script(type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
+        script(type="text/javascript" src="/javascripts/bootstrap.min.js")
+
+    footer(class="bg-light")
+        div(class="container mt-5 ")
+            div(class="row")
+                div(class="col-md")
+                    h5 Main page
+                    ul(class="list-unstyled text-small")
+                        li
+                            a(class="text-muted" href="#") Examples
+                        li
+                            a(class="text-muted" href="#") What is gene
+                        li
+                            a(class="text-muted" href="#") How to get report
+                div(class="col-md")
+                    h5 About CGDP
+                    ul(class="list-unstyled text-small")
+                        li
+                            a(class="text-muted" href="#") News
+                        li
+                            a(class="text-muted" href="#") Privacy protection
+                        li
+                            a(class="text-muted" href="#") Service
+                div(class="col-md")
+                    h5 Help
+                    ul(class="list-unstyled text-small")
+                        li
+                            a(class="text-muted" href="#") About the genetic disanosis
+                        li
+                            a(class="text-muted" href="#") Report Interpretation
+                        li
+                            a(class="text-muted" href="#") Community
+            div(class="row")
+                small(class="d-block mb-3 text-muted") @2017-2018 Clinical Genetic Diagnosis Platform
+                small(class="d-block mb-3 text-muted") All Rights Reserved
