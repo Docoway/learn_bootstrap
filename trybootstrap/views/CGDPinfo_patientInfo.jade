@@ -24,7 +24,7 @@ html(lang="zh-CN")
                     li(class="nav-item")
                         a(class="nav-link" href="#") PatientInfo
                     li(class="nav-item")
-                        a(class="nav-link" href="#geneticDianosis") Diagnosis
+                        a(class="nav-link" href="/geneticdiagnosis/diagnosisInfo") DiagnosisInfo
                     li(class="nav-item")
                         a(class="nav-link" href="#Report") Repoort
                 button(type="button" class="btn btn-outline-primary  my-2 my-lg-0 mr-5" data-toggle="modal" data-target="#signinModal") Sign in/Sign up
@@ -87,8 +87,11 @@ html(lang="zh-CN")
                                     span &times;
                             div(class="modal-body")
                                 form
-                                    div(class="mt-2")
-                                        h4(align="left") patientID
+                                    div(class="mt-2 form-row")
+                                        div(class="form-group col-md-3")
+                                            label
+                                                h5 patientID
+                                            input(type="text" class="form-control" placeholder="病号")
                                     div(class="form-row")
                                         div(class="form-group col-md")
                                             label Name
