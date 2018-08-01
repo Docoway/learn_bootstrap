@@ -1,0 +1,209 @@
+doctype html
+html(lang="zh-CN")
+    head
+        title="临床基因检测平台"
+        meta(charset="UTF-8")
+        meta(name="author" content="DC")
+        meta(name="description" content="Clinical Genetic Diagnosis Platform")
+
+        link(rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css")
+        link(rel="stylesheet" href="/stylesheets/bootstrap.min.css")
+        link(rel="stylesheet" href="//code.z01.com/v4/dist/css/zico.min.css")
+        style.
+            #navbarSupportedContent li a img { width: 40px; height: 40px; }
+            #navbarSupportedContent li a span{ font-size: 26px; }
+            .modal-dialog{ max-width:1280px; width: 1280px; }
+            .modal-body{ font-size: 15px; }
+
+
+
+    body
+        nav(class="navbar navbar-expand-lg navbar-light bg-light" style="height:80px;")
+            a(class="navbar-brand" href="/")
+                img(src="/images/hp_zh_cn_gray.png")
+                //span 临床基因检测平台
+            button(class="navbar-toggler" type="button" data-toggle="collapse" datatarget="#navbarSupportedContent")
+                span(class="navbar-toggle-icon")
+            div(class="collapse navbar-collapse" id="navbarSupportedContent")
+                ul(class="navbar-nav mr-auto ml-5")
+                    //li(class="nav-item ")
+                        a(class="nav-link" href="/geneticdiagnosis")
+                            span(style="font-size: 20px;") 临床基因检测平台
+                    li(class="nav-item active ml-5")
+                        a(class="nav-link" href="#")
+                            img(src="/images/form.png")
+                            span(class="ml-2") PatientInfo
+                    li(class="nav-item ml-5")
+                        a(class="nav-link" href="/geneticdiagnosis/diagnosisInfo")
+                            img(src="/images/report.png")
+                            span( class="ml-2") Repoort
+                    li(class="nav-item ml-5")
+                        a(class="nav-link" href="#Report")
+                            img(src="/images/search.png")
+                            span(class="ml-2") search
+                button(type="button" class="btn btn-outline-primary  my-2 my-lg-0 mr-5" data-toggle="modal" data-target="#signinModal") Login
+            div(id="signinModal" class="modal fade" tabindex="-1" role="dialog")
+                div(class="modal-dialog modal-dialog-centered" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title") Login
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span &times;
+                        div(class="modal-body")
+                            form
+                                div(class="form-group")
+                                    label(class="col-form-label") User:
+                                    input(id="username" type="text" class="form-control")
+                                div(class="form-group")
+                                    label(class="col-form-label") Password:
+                                    input(id="password" type="password" class="form-control")
+                        div(class="modal-footer")
+                            button(type="button" class="btn btn-outline-primary") Sign in
+                            button(type="button" class="btn btn-outline-primary") Sign up
+
+        div(class="slide_menu")
+        div(class="container" style="margin-top: 100px;")
+            div(class="row")
+                div(class="col-md-3 bg-light")
+                    div(class="card")
+                        img(class="card-img-top" src="/images/hp_zh_cn_gray.png" style="height: 350px;")
+                    div(class="card-body")
+                        h5(class="card-title") 遗传学检测申请单（NGS）
+                        h6(class="card-subtitle mb-2  text-muted") 全外显子组捕获与NGS
+                        a(class="btn btn-outline-primary mt-4" data-toggle="modal" data-target="#patientInfoModal1") 登记
+                div(class="col-md-1")
+                div(class="col-md-3 bg-light")
+                    div(class="card")
+                        img(class="card-img-top" src="/images/hp_zh_cn_gray.png" style="height: 350px;")
+                    div(class="card-body")
+                        h5(class="card-title") 遗传学检测申请单（NGS）
+                        h6(class="card-subtitle mb-2  text-muted") 全外显子组捕获与NGS
+                        a(class="btn btn-outline-primary mt-4" data-toggle="modal" data-target="#patientInfoModal2") 登记
+                div(class="col-md-1")
+                div(class="col-md-3 bg-light")
+                    div(class="card")
+                        img(class="card-img-top" src="/images/hp_zh_cn_gray.png" style="height: 350px;")
+                    div(class="card-body")
+                        h5(class="card-title") 遗传学检测申请单（NGS）
+                        h6(class="card-subtitle mb-2  text-muted") 全外显子组捕获与NGS
+                        a(class="btn btn-outline-primary mt-4" data-toggle="modal" data-target="#patientInfoModal3") 登记
+                div(class="col-md-1")
+
+        div(id="models")
+            div(id="patientInfoModal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog")
+                div(class="modal-dialog modal-dialog-centered" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title") 遗传学检测申请表（WES）
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span &times;
+                        div(class="modal-body")
+                            h5(class="text-muted text-center") 全外显子组捕获与NGS
+                            form
+                                div(id="first_part")
+                                    b 基本信息
+                                    div(class="form-row")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label") 姓&nbsp &nbsp名:
+                                            div
+                                                input(type="text" class="form-control" placeholder="姓名")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label") 性&nbsp &nbsp别:
+                                            label(class="col-form-label")
+                                                input(type="radio")
+                                                span 男 &nbsp &nbsp &nbsp
+                                            label(class="col-form-label")
+                                                input(type="radio")
+                                                span 女
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-4 col-form-label") 出生日期:
+                                            div
+                                                input(type="date" class="form-control" placeholder="出生日期")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label") 住院号:
+                                            div
+                                                input(type="text" class="form-control" placeholder="住院号")
+                                    div(class="form-row")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label") 采&nbsp &nbsp集:
+                                            div
+                                                input(type="text" class="form-control" placeholder="父亲姓名")
+                                                input(type="text" class="form-control" placeholder="母亲姓名")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-4 col-form-label") 样本类型:
+                                            div
+                                                label(class="col-form-label")
+                                                    input(type="checkbox")
+                                                    span 外周血(EDTA)
+                                                input(type="text" class="form-control" placeholder="其他")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-4 col-form-label") 民&nbsp&nbsp族:
+                                            div
+                                                input(type="text" class="form-control" placeholder="民族")
+                                            label(class="col-md-4 col-form-label") 联系电话:
+                                            div
+                                                input(type="text" class="form-control" placeholder="联系电话")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label") 籍  贯:
+                                            div
+                                                input(type="text" class="form-control" placeholder="籍贯")
+                                div(id="second_part" class="mt-2")
+                                    div(class="form-row")
+                                        div(class="form-group col-md")
+                                            label
+                                                b 主诉和现病史:
+                                            textarea(id="diseaseDescription" class="form-control" rows="8")
+                                        div(class="form-group col-md")
+                                            label
+                                                b 家族史:
+                                            textarea( class="form-control" rows="8")
+                                div(id="third_part" class="mt-2")
+                                    div(class="form-row")
+                                        div(class="form-group row")
+                                            label(class="col-md-6 col-form-label")
+                                                b 孕前及围产情况:
+                                            div
+
+                        div(class="modal-footer")
+                            button(type="button" class="btn btn-outline-secondary" data-dismiss="modal") 关闭
+                            button(type="button" class="btn btn-outline-primary") 确定
+
+
+
+        script(type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js")
+        script(type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js")
+        script(type="text/javascript" src="/javascripts/bootstrap.min.js")
+
+    footer(class="bg-light")
+        div(class="container mt-5 ")
+            div(class="row")
+                div(class="col-md")
+                    h5 Main page
+                    ul(class="list-unstyled text-small")
+                        li
+                            a(class="text-muted" href="#") Examples
+                        li
+                            a(class="text-muted" href="#") What is gene
+                        li
+                            a(class="text-muted" href="#") How to get report
+                div(class="col-md")
+                    h5 About CGDP
+                    ul(class="list-unstyled text-small")
+                        li
+                            a(class="text-muted" href="#") News
+                        li
+                            a(class="text-muted" href="#") Privacy protection
+                        li
+                            a(class="text-muted" href="#") Service
+                div(class="col-md")
+                    h5 Help
+                    ul(class="list-unstyled text-small")
+                        li
+                            a(class="text-muted" href="#") About the genetic disanosis
+                        li
+                            a(class="text-muted" href="#") Report Interpretation
+                        li
+                            a(class="text-muted" href="#") Community
+            div(class="row")
+                small(class="d-block mb-3 text-muted") @2017-2018 Clinical Genetic Diagnosis Platform
+                small(class="d-block mb-3 text-muted") All Rights Reserved
