@@ -14,6 +14,7 @@ html(lang="zh-CN")
             #navbarSupportedContent li a span{ font-size: 26px; }
             .modal-dialog{ max-width:1280px; width: 1280px; }
             .modal-body{ font-size: 15px; }
+            #tips{ font-size: 5px; }
 
 
 
@@ -66,7 +67,7 @@ html(lang="zh-CN")
             div(class="row")
                 div(class="col-md-3 bg-light")
                     div(class="card")
-                        img(class="card-img-top" src="/images/hp_zh_cn_gray.png" style="height: 350px;")
+                        img(class="card-img-top" src="/images/biao1.png" style="height: 350px;")
                     div(class="card-body")
                         h5(class="card-title") 遗传学检测申请单（NGS）
                         h6(class="card-subtitle mb-2  text-muted") 全外显子组捕获与NGS
@@ -74,7 +75,7 @@ html(lang="zh-CN")
                 div(class="col-md-1")
                 div(class="col-md-3 bg-light")
                     div(class="card")
-                        img(class="card-img-top" src="/images/hp_zh_cn_gray.png" style="height: 350px;")
+                        img(class="card-img-top" src="/images/biao1.png" style="height: 350px;")
                     div(class="card-body")
                         h5(class="card-title") 遗传学检测申请单（NGS）
                         h6(class="card-subtitle mb-2  text-muted") 全外显子组捕获与NGS
@@ -82,7 +83,7 @@ html(lang="zh-CN")
                 div(class="col-md-1")
                 div(class="col-md-3 bg-light")
                     div(class="card")
-                        img(class="card-img-top" src="/images/hp_zh_cn_gray.png" style="height: 350px;")
+                        img(class="card-img-top" src="/images/biao1.png" style="height: 350px;")
                     div(class="card-body")
                         h5(class="card-title") 遗传学检测申请单（NGS）
                         h6(class="card-subtitle mb-2  text-muted") 全外显子组捕获与NGS
@@ -155,18 +156,230 @@ html(lang="zh-CN")
                                             textarea(id="diseaseDescription" class="form-control" rows="8")
                                         div(class="form-group col-md")
                                             label
-                                                b 家族史:
+                                                b 家族史
+                                                    span(style="color: #0000CD; font-size: 10px;") （含家系图、心脏病/猝死等重大疾病）：
                                             textarea( class="form-control" rows="8")
                                 div(id="third_part" class="mt-2")
-                                    div(class="form-row")
-                                        div(class="form-group row")
-                                            label(class="col-md-6 col-form-label")
-                                                b 孕前及围产情况:
+                                    b 孕前及围产情况:
+                                    div(class="form-row mt-1")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-3 col-form-label") 孕 前
                                             div
+                                                input(type="text" class="form-control")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-3 col-form-label") 产 检
+                                            div
+                                                input(type="text" class="form-control")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label")
+                                                span(style="color: #0000CD;") TORCH感染
+                                            div
+                                                input(type="text" class="form-control")
+                                        div(class="form-group row col-md")
+                                    div(class="form-row")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 先兆流产
+                                            div
+                                                input(type="text" class="form-control")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 是否保胎
+                                            div(class="col-md-8")
+                                                label(class="col-form-label")
+                                                    input(type="checkbox")
+                                            label(class="col-md-3 col-form-label") 孕 周:
+                                            div
+                                                input(type="number" class="form-control" style="width: 165px;")
+                                            label(class="col-md-3 col-form-label") 周
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 出生体重:
+                                            div
+                                                input(type="number" class="form-control" style="width: 135px;")
+                                            label(class="col-md-3 col-form-label") kg
+                                            label(class="col-md-4 col-form-label") 身 长 :
+                                            div
+                                                input(type="number" class="form-control" style="width: 135px;")
+                                            label(class="col-md-3 col-form-label") cm
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 出生评分
+                                            div
+                                                input(type="number" class="form-control")
+                                div(id="forth_part" class="mt-2")
+                                    b 母亲妊娠及分娩史:
+                                    div(class="form-row mt-1")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-3 col-form-label") 妊 娠
+                                            div
+                                                input(type="number" class="form-control" style="width: 135px;")
+                                            label(class="col-md-3 col-form-label") 次
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 自然流产
+                                            div
+                                                input(type="number" class="form-control" style="width: 135px;")
+                                            label(class="col-md-3 col-form-label") 次
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-3 col-form-label") 人 流
+                                            div
+                                                input(type="number" class="form-control" style="width: 135px;")
+                                            label(class="col-md-3 col-form-label") 次
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-3 col-form-label") 生 育
+                                            div
+                                                input(type="number" class="form-control" style="width: 135px;")
+                                            label(class="col-md-3 col-form-label") 次
+                                    div(class="form-row")
+                                        div(class="form-group col-md")
+                                            label
+                                                span 畸形儿分娩史:
+                                            textarea( class="form-control" rows="4")
+                                div(id="fifth_part" class="mt-2")
+                                    b 一般查体:
+                                    div(class="form-row mt-1")
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 身高
+                                            div
+                                                input(type="number" class="form-control" style="width: 90px;")
+                                            label(class="col-md-3 col-form-label") cm
+                                        div(class="form-group row col-md")
+                                            div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 体重
+                                            div
+                                                input(type="number" class="form-control" style="width: 90px;")
+                                            label(class="col-md-3 col-form-label") kg
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 头围
+                                            div
+                                                input(type="number" class="form-control" style="width: 90px;")
+                                            label(class="col-md-3 col-form-label") cm
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 血压
+                                            div
+                                                input(type="number" class="form-control" style="width: 70px;")
+                                            label(class="col-md-3 col-form-label") mmHg
+                                        div(class="form-group row col-md")
+                                            label(class="col-md-4 col-form-label") 心率
+                                            div
+                                                input(type="number" class="form-control" style="width: 70px;")
+                                            label(class="col-md-4 col-form-label") 次/分
+                                        div(class="form-group row col-md")
+                                    div(class="form-row")
+                                        div(class="form-group col-md-3")
+                                            label 皮肤
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 毛发
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 牙齿
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 囟门
+                                            input(type="text" class="form-control")
+                                    div(class="form-row")
+                                        div(class="form-group col-md-3")
+                                            label 神经反射
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 肌力
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 肌张力
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 反应
+                                            input(type="text" class="form-control")
+                                    div(class="form-row")
+                                        div(class="form-group col-md-1")
+                                            label 听力左
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-1")
+                                            label 听力右
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 视力
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 饮食
+                                            input(type="text" class="form-control")
+                                        div(class="form-group col-md-3")
+                                            label 睡眠
+                                            input(type="text" class="form-control")
+                                    div(class="form-row")
+                                        div(class="form-group col-md")
+                                            label
+                                                span 其它:
+                                            textarea( class="form-control" rows="4")
+                                div(id="sixth_part" class="mt-2")
+                                    div(class="form-row mt-1")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b(style="color: #0000CD;") 特殊面容:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:450px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 体格及脏器发育:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:450px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 智力发育评估:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:450px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 行为发育评估:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:450px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 运动发育评估:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:450px;")
+                                        div(class="form-group col-md row")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 既往病史及治疗:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:400px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 外伤手术史:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:400px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 输血史:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:400px;")
+                                            label(class="col-md-3 col-form-label mb-1")
+                                                b 其它:
+                                            div
+                                                input(type="text" class="form-control mb-1" style="width:400px;")
+                                div(id="seventh_part" class="mt-2")
+                                    b 其他检查结果(包括脑电图、肌电图、影像学、临床生化、激素、细胞因子、病理、染色体等):
+                                    div(class="form-row mt-1")
+                                        div(class="form-group col-md")
+                                            label
+                                            textarea( class="form-control" rows="8")
+                                div(id="tips")
+                                    b 温馨提示:
+                                    br
+                                    span 1.开单需使用3个代码，分别为:
+                                        span(style="color: #FF4500;") QWXZJC(采孩子血)
+                                        span
+                                            b 、FQYZ(采父亲血)、
+                                        span(style="color: #9400D3;") MQYZ(采母亲血)。
+                                    br
+                                    span 2.
+                                        span(style="color: #FF4500;") 请完整、准确、清楚填写受检者信息
+                                        span ,并指导受检者或监护人签署“知情同意书”,
+                                        span(style="color: #FF4500;") “知情同意书”与标本一起递送。
+                                    br
+                                    span 3.通常受检者父、母亲标本用于
+                                        span(style="color: #FF4500;") 验证受检者检出的可以阳性位点
+                                        span ,若要一同检测其全外显子组，需另外挂号、开单、缴费。
+
+
+
+
+
 
                         div(class="modal-footer")
                             button(type="button" class="btn btn-outline-secondary" data-dismiss="modal") 关闭
-                            button(type="button" class="btn btn-outline-primary") 确定
+                            button(type="button" class="btn btn-outline-primary") 录入
 
 
 
